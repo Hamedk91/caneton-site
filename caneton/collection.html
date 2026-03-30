@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CANETON — Toute la collection. Vestes, manteaux et pièces de luxe africain contemporain.">
+  <title>Collection — CANETON</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* === HERO BAR === */
+    .col-hero {
+      background: var(--beige);
+      padding: 52px var(--pad-x) 0;
+    }
+    .col-hero-inner {
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      padding-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .col-page-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 1.0;
+    }
+    .col-page-title i { color: var(--gold); }
+    .col-count {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* === FILTERS === */
+    .col-filters {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 0 var(--pad-x);
+      background: var(--cream);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .col-filters::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      padding: 16px 20px;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: var(--font-body);
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .filter-btn:hover { color: var(--dark); }
+    .filter-btn.active { color: var(--dark); border-bottom-color: var(--gold); }
+
+    /* === PRODUCT GRID === */
+    .col-grid-wrap { padding: 2px 0 80px; }
+    .col-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .col-pcard {
+      background: var(--white);
+      cursor: pointer;
+      display: block;
+      transition: box-shadow var(--transition);
+    }
+    .col-pcard:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+    .col-pcard-img {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      position: relative;
+    }
+    .col-pcard-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform var(--transition-slow);
+    }
+    .col-pcard:hover .col-pcard-img img { transform: scale(1.04); }
+    .col-pcard-img.placeholder { background: var(--beige-light); display: flex; align-items: center; justify-content: center; }
+    .col-pcard-img.placeholder-dark { background: linear-gradient(145deg, #1e1510, #2a1d12); display: flex; align-items: center; justify-content: center; }
+    .placeholder-text { font-size: 8px; letter-spacing: 0.2em; color: var(--muted); opacity: 0.3; text-transform: uppercase; }
+    .placeholder-dark .placeholder-text { color: var(--beige); opacity: 0.15; }
+
+    .col-pcard-tag {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: var(--dark);
+      color: var(--sand);
+      font-size: 8px;
+      letter-spacing: 0.25em;
+      padding: 4px 9px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .col-pcard-tag.new { background: var(--gold); color: var(--white); }
+
+    .col-pcard-info { padding: 18px 20px 22px; }
+    .col-pcard-name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 300;
+      margin-bottom: 4px;
+      color: var(--dark);
+    }
+    .col-pcard-mat {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .col-pcard-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .col-pcard-price { font-size: 14px; color: var(--gold); }
+
+    /* hidden class for filter */
+    .col-pcard.hidden { display: none; }
+
+    @media (max-width: 900px) {
+      .col-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .col-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">CANETON</a>
+    <ul class="nav-menu">
+      <li><a href="collection.html" class="active">Collections</a></li>
+      <li><a href="contact.html">Artisanat</a></li>
+      <li><a href="contact.html">Histoire</a></li>
+      <li><a href="contact.html">Maison</a></li>
+    </ul>
+    <div class="nav-right">
+      <span class="nav-lang">FR</span>
+      <a href="panier.html" class="btn nav-cart-btn">
+        <span class="label">Panier</span>
+        <span class="nav-cart-count" style="display:none">0</span>
+      </a>
+    </div>
+    <button class="nav-burger"><span></span><span></span><span></span></button>
+  </nav>
+  <nav class="nav-drawer">
+    <a href="collection.html">Collections</a>
+    <a href="contact.html">Artisanat</a>
+    <a href="contact.html">Notre histoire</a>
+    <a href="contact.html">Maison</a>
+    <a href="panier.html">Panier</a>
+  </nav>
+
+  <!-- HERO BAR -->
+  <div class="col-hero">
+    <div class="col-hero-inner">
+      <div>
+        <div class="section-eyebrow">Printemps — Été 2025</div>
+        <h1 class="col-page-title">Toute la <i>collection</i></h1>
+      </div>
+      <div class="col-count" id="productCount">6 pièces</div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="col-filters">
+    <button class="filter-btn active" data-filter="all">Tout</button>
+    <button class="filter-btn" data-filter="veste">Vestes</button>
+    <button class="filter-btn" data-filter="manteau">Manteaux</button>
+    <button class="filter-btn" data-filter="costume">Costumes</button>
+    <button class="filter-btn" data-filter="chemise">Chemises</button>
+    <button class="filter-btn" data-filter="limite">Éditions limitées</button>
+  </div>
+
+  <!-- GRID -->
+  <div class="col-grid-wrap">
+    <div class="col-grid" id="colGrid">
+
+      <a href="produit.html?id=1" class="col-pcard" data-cat="veste limite">
+        <div class="col-pcard-img">
+          <img src="images/veste-kuba.png" alt="Veste Royale Kuba">
+          <div class="col-pcard-tag">Limité</div>
+        </div>
+        <div class="col-pcard-info">
+          <div class="col-pcard-name">Veste Royale Kuba</div>
+          <div class="col-pcard-mat">Congo · Laine &amp; Soie brodée</div>
+          <div class="col-pcard-row">
+            <span class="col-pcard-price">2 400 €</span>
+            <button class="btn btn-outline-dark" onclick="event.preventDefault(); addToCart({id:'1',name:'Veste Royale Kuba',price:2400,image:'images/veste-kuba.png',size:'M'})">Ajouter</button>
+          </div>
+        </div>
+      </a>
+
+      <a href="produit.html?id=2" class="col-pcard" data-cat="veste">
+        <div class="col-pcard-img">
+          <img src="images/veste-ashanti.png" alt="Veste Ashanti Col Mao" style="object-position:30% top;">
+          <div class="col-pcard-tag new">Nouveau</div>
+        </div>
+        <div class="col-pcard-info">
+          <div class="col-pcard-name">Veste Ashanti Col Mao</div>
+          <div class="col-pcard-mat">Ghana · Cachemire &amp; Kente</div>
+          <div class="col-pcard-row">
+            <span class="col-pcard-price">3 100 €</span>
+            <button class="btn btn-outline-dark" onclick="event.preventDefault(); addToCart({id:'2',name:'Veste Ashanti Col Mao',price:3100,image:'images/veste-ashanti.png',size:'M'})">Ajouter</button>
+          </div>
+        </div>
+      </a>
+
+      <a href="produit.html?id=3" class="col-pcard" data-cat="costume">
+        <div class="col-pcard-img placeholder"><span class="placeholder-text">Photo à venir</span></div>
+        <div class="col-pcard-info">
+          <div class="col-pcard-name">Costume Ashanti</div>
+          <div class="col-pcard-mat">Ghana · Kente &amp; Laine</div>
+          <div class="col-pcard-row">
+            <span class="col-pcard-price">2 800 €</span>
+            <button class="btn btn-outline-dark" onclick="event.preventDefault(); addToCart({id:'3',name:'Costume Ashanti',price:2800,image:'',size:'M'})">Ajouter</button>
+          </div>
+        </div>
+      </a>
+
+      <a href="produit.html?id=4" class="col-pcard" data-cat="chemise">
+        <div class="col-pcard-img placeholder-dark"><span class="placeholder-text" style="color:var(--beige);opacity:0.2;">Photo à venir</span></div>
+        <div class="col-pcard-info">
+          <div class="col-pcard-name">Chemise Adinkra</div>
+          <div class="col-pcard-mat">Côte d'Ivoire · Coton</div>
+          <div class="col-pcard-row">
+            <span class="col-pcard-price">680 €</span>
+            <button class="btn btn-outline-dark" onclick="event.preventDefault(); addToCart({id:'4',name:'Chemise Adinkra',price:680,image:'',size:'M'})">Ajouter</button>
+          </div>
+        </div>
+      </a>
+
+      <a href="produit.html?id=5" class="col-pcard" data-cat="veste">
+        <div class="col-pcard-img placeholder"><span class="placeholder-text">Photo à venir</span></div>
+        <div class="col-pcard-info">
+          <div class="col-pcard-name">Veste Col Mao</div>
+          <div class="col-pcard-mat">Sénégal · Laine cachemire</div>
+          <div class="col-pcard-row">
+            <span class="col-pcard-price">1 900 €</span>
+            <button class="btn btn-outline-dark" onclick="event.preventDefault(); addToCart({id:'5',name:'Veste Col Mao',price:1900,image:'',size:'M'})">Ajouter</button>
+          </div>
+        </div>
+      </a>
+
+      <a href="produit.html?id=6" class="col-pcard" data-cat="veste limite">
+        <div class="col-pcard-img placeholder-dark">
+          <span class="placeholder-text" style="color:var(--beige);opacity:0.2;">Photo à venir</span>
+          <div class="col-pcard-tag">Limité</div>
+        </div>
+        <div class="col-pcard-info">
+          <div class="col-pcard-name">Blazer Dogon</div>
+          <div class="col-pcard-mat">Mali · Denim &amp; Broderie</div>
+          <div class="col-pcard-row">
+            <span class="col-pcard-price">2 100 €</span>
+            <button class="btn btn-outline-dark" onclick="event.preventDefault(); addToCart({id:'6',name:'Blazer Dogon',price:2100,image:'',size:'M'})">Ajouter</button>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">CANETON</div>
+        <div class="footer-tagline">La culture en mouvement</div>
+        <p class="footer-desc">Maison de couture africaine contemporaine fondée à Paris.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <ul class="footer-links">
+          <li><a href="collection.html">Vestes &amp; Manteaux</a></li>
+          <li><a href="collection.html">Costumes</a></li>
+          <li><a href="collection.html">Éditions limitées</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Maison</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Notre histoire</a></li>
+          <li><a href="contact.html">Sur-mesure</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Légal</div>
+        <ul class="footer-links">
+          <li>Mentions légales</li>
+          <li>Politique de confidentialité</li>
+          <li>CGV</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 CANETON — Tous droits réservés</span>
+      <span>Paris · Accra · Lagos · Dakar</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Filter
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+        const cards = document.querySelectorAll('.col-pcard');
+        let visible = 0;
+        cards.forEach(card => {
+          const cats = card.dataset.cat || '';
+          if (filter === 'all' || cats.includes(filter)) {
+            card.classList.remove('hidden');
+            visible++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+        document.getElementById('productCount').textContent = visible + ' pièce' + (visible > 1 ? 's' : '');
+      });
+    });
+  </script>
+</body>
+</html>

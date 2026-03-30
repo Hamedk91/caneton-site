@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CANETON — Maison de couture africaine contemporaine. Vestes et pièces de luxe inspirées des tissus Kuba, Kente et Bogolan.">
+  <title>CANETON — La culture en mouvement</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* === HERO === */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - var(--nav-h));
+      background: var(--dark);
+    }
+    .hero-left {
+      padding: 80px var(--pad-x);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--sand);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 5.5vw, 80px);
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--beige-light);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.35s forwards;
+    }
+    .hero-title i { color: var(--sand); }
+    .hero-sub {
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(232, 217, 192, 0.35);
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.65s forwards;
+    }
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      background: rgba(14, 11, 8, 0.88);
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-badge-name {
+      font-family: var(--font-display);
+      font-size: 17px;
+      color: var(--beige);
+      font-weight: 300;
+      margin-bottom: 4px;
+    }
+    .hero-badge-sub {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--sand);
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+    .hero-badge-price {
+      font-size: 15px;
+      color: var(--sand);
+      letter-spacing: 0.05em;
+    }
+
+    /* === COLLECTION SECTION === */
+    .collection-section { padding: 96px var(--pad-x); background: var(--cream); }
+    .collection-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+    }
+    .see-all {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: gap var(--transition);
+    }
+    .see-all:hover { gap: 14px; }
+    .see-all::after { content: '→'; }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    /* === STORY === */
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .story-img {
+      overflow: hidden;
+      position: relative;
+    }
+    .story-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 30% top;
+      transition: transform var(--transition-slow);
+    }
+    .story:hover .story-img img { transform: scale(1.03); }
+    .story-content {
+      background: var(--beige);
+      padding: 72px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .story-quote {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 38px);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 1.35;
+      margin-bottom: 24px;
+    }
+    .story-text {
+      font-size: 13px;
+      line-height: 1.9;
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 420px;
+    }
+
+    /* === LOOKBOOK BANNER === */
+    .lookbook {
+      background: var(--dark);
+      padding: 80px var(--pad-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 48px;
+    }
+    .lookbook-imgs {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .lk-img {
+      width: 130px;
+      height: 180px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: border-color var(--transition);
+    }
+    .lk-img:hover { border-color: var(--sand); }
+    .lk-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform var(--transition-slow);
+    }
+    .lk-img:hover img { transform: scale(1.06); }
+    .lk-img:nth-child(2) img { object-position: 30% top; }
+    .lk-img:nth-child(3) img { object-position: right top; }
+
+    /* === VALUES === */
+    .values {
+      padding: 96px var(--pad-x);
+      background: var(--cream);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 56px;
+    }
+    .value-item { border-top: 1px solid rgba(0,0,0,0.1); padding-top: 28px; }
+    .value-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 300;
+      color: rgba(0,0,0,0.06);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .value-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .value-text {
+      font-size: 12px;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { height: 55vw; max-height: 480px; }
+      .story { grid-template-columns: 1fr; }
+      .story-img { height: 50vw; max-height: 380px; }
+      .story-content { padding: 48px var(--pad-x); }
+      .lookbook { flex-direction: column; align-items: flex-start; }
+      .lookbook-imgs { width: 100%; justify-content: flex-start; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: clamp(38px, 10vw, 56px); }
+      .lk-img { width: 90px; height: 125px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">CANETON</a>
+    <ul class="nav-menu">
+      <li><a href="collection.html">Collections</a></li>
+      <li><a href="index.html#story">Artisanat</a></li>
+      <li><a href="contact.html">Histoire</a></li>
+      <li><a href="contact.html">Maison</a></li>
+    </ul>
+    <div class="nav-right">
+      <span class="nav-lang">FR</span>
+      <a href="panier.html" class="btn nav-cart-btn">
+        <span class="label">Panier</span>
+        <span class="nav-cart-count" style="display:none">0</span>
+      </a>
+    </div>
+    <button class="nav-burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <nav class="nav-drawer">
+    <a href="collection.html">Collections</a>
+    <a href="contact.html">Artisanat</a>
+    <a href="contact.html">Notre histoire</a>
+    <a href="contact.html">Maison</a>
+    <a href="panier.html">Panier</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Collection SS 2025</div>
+      <h1 class="hero-title">La culture<br><i>en mouvement</i></h1>
+      <p class="hero-sub">Couture africaine contemporaine · Paris</p>
+      <div class="hero-btns">
+        <a href="collection.html" class="btn btn-primary">Découvrir</a>
+        <a href="contact.html" class="btn btn-outline">Notre histoire</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img">
+        <img src="images/veste-kuba.png" alt="Veste Royale Kuba — CANETON">
+        <div class="hero-badge">
+          <div class="hero-badge-name">Veste Royale Kuba</div>
+          <div class="hero-badge-sub">Congo · Laine &amp; Broderie main</div>
+          <div class="hero-badge-price">2 400 €</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">Artisanat d'exception</span>
+      <span class="ticker-item">Héritage africain</span>
+      <span class="ticker-item">La culture en mouvement</span>
+      <span class="ticker-item">Broderie Kuba</span>
+      <span class="ticker-item">Fait main — Paris &amp; Afrique</span>
+      <span class="ticker-item">Éditions limitées</span>
+      <span class="ticker-item">Artisanat d'exception</span>
+      <span class="ticker-item">Héritage africain</span>
+      <span class="ticker-item">La culture en mouvement</span>
+      <span class="ticker-item">Broderie Kuba</span>
+      <span class="ticker-item">Fait main — Paris &amp; Afrique</span>
+      <span class="ticker-item">Éditions limitées</span>
+    </div>
+  </div>
+
+  <!-- COLLECTION -->
+  <section class="collection-section">
+    <div class="collection-header reveal">
+      <div>
+        <div class="section-eyebrow">Pièces phares</div>
+        <h2 class="section-title">La <i>collection</i></h2>
+      </div>
+      <a href="collection.html" class="see-all">Voir tout</a>
+    </div>
+
+    <div class="product-grid">
+      <a href="produit.html?id=1" class="pcard reveal reveal-delay-1">
+        <div class="pcard-img">
+          <img src="images/veste-kuba.png" alt="Veste Royale Kuba">
+          <div class="pcard-tag">Édition limitée</div>
+          <div class="pcard-overlay"></div>
+          <button class="pcard-quick" onclick="event.preventDefault(); addToCart({id:'1',name:'Veste Royale Kuba',price:2400,image:'images/veste-kuba.png',size:'M'})">
+            Ajouter au panier
+          </button>
+        </div>
+        <div class="pcard-name">Veste Royale Kuba</div>
+        <div class="pcard-origin">Congo · Laine &amp; Broderie main</div>
+        <div class="pcard-price">2 400 €</div>
+      </a>
+
+      <a href="produit.html?id=2" class="pcard reveal reveal-delay-2">
+        <div class="pcard-img">
+          <img src="images/veste-ashanti.png" alt="Veste Ashanti Col Mao" style="object-position:30% top;">
+          <div class="pcard-tag new">Nouveau</div>
+          <div class="pcard-overlay"></div>
+          <button class="pcard-quick" onclick="event.preventDefault(); addToCart({id:'2',name:'Veste Ashanti Col Mao',price:3100,image:'images/veste-ashanti.png',size:'M'})">
+            Ajouter au panier
+          </button>
+        </div>
+        <div class="pcard-name">Veste Ashanti Col Mao</div>
+        <div class="pcard-origin">Ghana · Cachemire &amp; Kente</div>
+        <div class="pcard-price">3 100 €</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story" id="story">
+    <div class="story-img">
+      <img src="images/veste-ashanti.png" alt="Atelier CANETON">
+    </div>
+    <div class="story-content">
+      <div class="section-eyebrow reveal">Notre philosophie</div>
+      <div class="section-divider"></div>
+      <p class="story-quote reveal">"Chaque broderie raconte un siècle de savoir-faire."</p>
+      <p class="story-text reveal">CANETON naît d'une conviction : le luxe peut être porteur d'identité. Chaque pièce est le fruit d'une collaboration entre artisans africains maîtrisant des traditions séculaires et nos ateliers parisiens.</p>
+      <a href="contact.html" class="btn btn-dark reveal" style="align-self:flex-start;">Notre manifeste</a>
+    </div>
+  </section>
+
+  <!-- LOOKBOOK -->
+  <section class="lookbook">
+    <div class="reveal">
+      <div class="section-eyebrow light">Lookbook SS 2025</div>
+      <h2 class="section-title light">Voir le <i>lookbook</i></h2>
+      <div style="margin-top:28px;">
+        <a href="collection.html" class="btn btn-outline">Explorer →</a>
+      </div>
+    </div>
+    <div class="lookbook-imgs reveal">
+      <div class="lk-img"><img src="images/veste-kuba.png" alt="Look 1"></div>
+      <div class="lk-img"><img src="images/veste-ashanti.png" alt="Look 2"></div>
+      <div class="lk-img"><img src="images/veste-kuba.png" alt="Look 3"></div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <div class="reveal">
+      <div class="section-eyebrow">Nos engagements</div>
+      <h2 class="section-title">L'<i>héritage</i> en pratique</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-item reveal reveal-delay-1">
+        <div class="value-num">01</div>
+        <div class="value-title">Artisanat ancestral</div>
+        <p class="value-text">Chaque motif est issu de traditions textiles transmises de génération en génération. Nos artisans maîtrisent des techniques vieilles de plusieurs siècles.</p>
+      </div>
+      <div class="value-item reveal reveal-delay-2">
+        <div class="value-num">02</div>
+        <div class="value-title">Coupe sur mesure</div>
+        <p class="value-text">Chaque pièce est taillée dans notre atelier parisien selon les mensurations exactes de son porteur. Délai de confection : 4 à 6 semaines.</p>
+      </div>
+      <div class="value-item reveal reveal-delay-3">
+        <div class="value-num">03</div>
+        <div class="value-title">Matières nobles</div>
+        <p class="value-text">Laine, cachemire, soie — sélectionnées pour leur durabilité et leur aptitude à recevoir la broderie africaine dans toute sa richesse.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">CANETON</div>
+        <div class="footer-tagline">La culture en mouvement</div>
+        <p class="footer-desc">Maison de couture africaine contemporaine fondée à Paris. Nos ateliers opèrent à Paris, Accra, Lagos et Dakar.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <ul class="footer-links">
+          <li><a href="collection.html">Vestes &amp; Manteaux</a></li>
+          <li><a href="collection.html">Costumes</a></li>
+          <li><a href="collection.html">Chemises</a></li>
+          <li><a href="collection.html">Éditions limitées</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Maison</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Notre histoire</a></li>
+          <li><a href="contact.html">Artisans</a></li>
+          <li><a href="collection.html">Lookbook</a></li>
+          <li><a href="contact.html">Presse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="contact.html">Sur-mesure</a></li>
+          <li><a href="contact.html">Livraison</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 CANETON — Tous droits réservés</span>
+      <span>Politique de confidentialité · Mentions légales</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
