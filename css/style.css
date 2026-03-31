@@ -506,3 +506,12 @@ ul { list-style: none; }
   .footer-grid { grid-template-columns: 1fr; }
   .nav-cart-btn span.label { display: none; }
 }
+
+/* Logo image in nav */
+.nav-logo img { 
+  height: 38px; 
+  display: block;
+  transition: opacity 0.3s;
+}
+.nav-logo:hover img { opacity: 0.8; }
+.footer-brand img { height: 44px; display: block; }
